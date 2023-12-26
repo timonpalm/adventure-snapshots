@@ -1,52 +1,31 @@
-import { createApi } from "unsplash-js";
 import { Photo } from "../types";
-import lqip from "lqip-modern";
 
-async function getDataUrl(url: string) {
-  const imgData = await fetch(url);
 
-  const arrayBufferData = await imgData.arrayBuffer();
-  const lqipData = await lqip(Buffer.from(arrayBufferData));
+export function getImages(): Photo[] {
+  const dirpath: string = "/photos";
 
-  return lqipData.metadata.dataURIBase64;
-}
+  // Read all files in the directory that are in a image format
+  const files = require.context('/public/photos', false)
 
-export async function getImages(
-  cli: ReturnType<typeof createApi>,
-  query: string
-): Promise<Photo[]> {
-  const mappedPhotos: Photo[] = [];
+  console.log(files);
 
-  const photos = await cli.photos.getRandom({
-    count: 8,
-    query,
+  // Get all file paths
+  const images = files.keys().map((key) => {
+    console.log(key);
+    return dirpath + key.slice(1);
   });
 
-  if (photos.type === "success") {
-    const responseArr = Array.isArray(photos.response)
-      ? photos.response
-      : [photos.response];
+  console.log(images);
 
-    const photosArr = responseArr.map((photo, idx) => ({
-      src: photo.urls.full,
-      thumb: photo.urls.thumb,
-      width: photo.width,
-      height: photo.height,
-      alt: photo.alt_description ?? `img-${idx}`,
-      likes: photo.likes,
-    }));
-
-    const photosArrWithDataUrl: Photo[] = [];
-
-    for (const photo of photosArr) {
-      const blurDataURL = await getDataUrl(photo.src);
-      photosArrWithDataUrl.push({ ...photo, blurDataURL });
-    }
-
-    mappedPhotos.push(...photosArrWithDataUrl);
-  } else {
-    console.error("Could not get photos");
-  }
+  // Map to Photo type
+  const mappedPhotos = images.map((path) => ({
+    src: path,
+    thumb: path,
+    width: 1200,
+    height: 1200,
+    alt: "alt",
+    likes: 0,
+  }));
 
   return mappedPhotos;
 }

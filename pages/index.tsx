@@ -4,28 +4,16 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames";
-import nodeFetch from "node-fetch";
 
 import bgImage from "../public/bike_mountains.jpg";
 
-import { GetStaticProps } from "next";
-import { createApi } from "unsplash-js";
 import { Gallery } from "../components/Gallery";
-import { getImages } from "../utils/image-util";
-import { useMemo } from "react";
+import {getImages} from "../utils/image-util";
 
 const tabs = [
   {
     key: "all",
     display: "All",
-  },
-  {
-    key: "oceans",
-    display: "Oceans",
-  },
-  {
-    key: "forests",
-    display: "Forests",
   },
 ];
 
@@ -34,32 +22,8 @@ type HomeProps = {
   forests: Photo[];
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const unsplash = createApi({
-    accessKey: process.env.UNSPLASH_ACCESS_KEY!,
-    fetch: nodeFetch as unknown as typeof fetch,
-  });
-
-  const [oceans, forests] = await Promise.all([
-    getImages(unsplash, "oceans"),
-    getImages(unsplash, "forests"),
-  ]);
-
-  return {
-    props: {
-      oceans,
-      forests,
-    },
-    // revalidate: 10,    uncomment for ISR
-  };
-};
-
 export default function Home({ oceans, forests }: HomeProps) {
-  const allPhotos = useMemo(() => {
-    const all = [...oceans, ...forests];
-
-    return all.sort((a, b) => b.likes - a.likes);
-  }, [oceans, forests]);
+  const allPhotos = getImages();
 
   return (
     <div className="h-full overflow-auto">
@@ -114,12 +78,6 @@ export default function Home({ oceans, forests }: HomeProps) {
             <Tab.Panels className="h-full h-full max-w-[900px] w-full p-2 sm:p-4 my-6">
               <Tab.Panel className="overflow-auto">
                 <Gallery photos={allPhotos} />
-              </Tab.Panel>
-              <Tab.Panel>
-                <Gallery photos={oceans} />
-              </Tab.Panel>
-              <Tab.Panel>
-                <Gallery photos={forests} />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

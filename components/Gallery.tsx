@@ -32,8 +32,8 @@ export function Gallery({ photos }: GalleryProps) {
               height={photo.height}
               alt={photo.alt}
               className="relative my-4"
-              placeholder="blur"
-              blurDataURL={photo.blurDataURL}
+              //placeholder="blur"
+              //blurDataURL={photo.blurDataURL}
             />
             <div
               className="absolute w-full h-full inset-0 bg-transparent hover:bg-stone-900 hover:bg-opacity-10 cursor-pointer"
