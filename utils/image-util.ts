@@ -7,15 +7,11 @@ export function getImages(): Photo[] {
   // Read all files in the directory that are in a image format
   const files = require.context('/public/photos', false)
 
-  console.log(files);
-
   // Get all file paths
   const images = files.keys().map((key) => {
     console.log(key);
     return dirpath + key.slice(1);
   });
-
-  console.log(images);
 
   // Map to Photo type
   const mappedPhotos = images.map((path) => ({
