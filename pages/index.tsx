@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import bgImage from "../public/bike_mountains.jpg";
 
 import { Gallery } from "../components/Gallery";
 import {getImages} from "../utils/image-util";
+import NavMenu from "../components/NavMenu";
 
 export default function Home() {
   const allPhotos = getImages();
@@ -26,19 +26,7 @@ export default function Home() {
 
       />
 
-      <div className=""></div>
-
-      <header className="sticky top-0 w-full z-30 flex justify-between items-center h-[90px] px-10 bg-slate-600 opacity-40 bg-opacity-40">
-        <span className="uppercase text-lg font-medium opacity-100">
-          Adventure Snapshots
-        </span>
-        <Link
-          href="#"
-          className="rounded-3xl bg-white text-stone-700 px-3 py-2 hover:bg-opacity-100"
-        >
-          Get in touch
-        </Link>
-      </header>
+      <NavMenu />
 
       <main className="relative z-10 top-0">
 
@@ -46,10 +34,20 @@ export default function Home() {
           Explore the Collection of my Adventure Snapshots
         </div>
         <div className="bg-stone-900">
-          <div className="p-10">
-            SomfajdkjlsaFjlsdflzsdjfzlsdfjsd
+          <div className="p-10 px-60">
+            <h1>This is my Story</h1>
+
+            <section>
+              <p>
+                In 2021 I decided to go on a bike trip alone. It was first just planned to get to the south of Portugal and see how it goes.
+                Everything turned out to be very fortunity and I really enjoyed the time on my bike. So, I continued my trip. But where to go next?
+                Portugal is the western end of Europe. Going back, would have meant to go back to colder regions, as it was still winter at that time.
+                I really wanted to got to Morocco but the bourders were closed at that time due to Covid. So I decided to take a ferry to the canary islands and 
+                see if in the meantime the borders would open again. And they did.
+              </p>
+            </section>
           </div>
-          <div className="p-10">
+          <div className="py-10 px-60">
             <Gallery photos={allPhotos} />
           </div>
         </div>

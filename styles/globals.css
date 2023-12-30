@@ -7,14 +7,10 @@
   body {
     height: 100%;
     color: white;
+    background-color: rgb(28,25,23);
   }
 
   #__next {
     height: 100%;
   }
-}
-
-.btn-error{
-  font-size: 14px;
-  color: red;
 }
