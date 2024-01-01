@@ -10,7 +10,7 @@ export default function Home() {
   const allPhotos = getImages();
 
   return (
-    <div className="h-full overflow-auto">
+    <div className="h-full">
       <Head>
         <title>Adventure Snapshots</title>
         <meta name="description" content="Collection of my adventure snapshots" />
@@ -19,10 +19,9 @@ export default function Home() {
 
       <Image
         priority
-        className="fixed left-0 top-0 z-0"
+        className="fixed bg-cover"
         src={bgImage}
         alt="background-image"
-        placeholder="blur"
 
       />
 
@@ -30,7 +29,7 @@ export default function Home() {
 
       <main className="relative z-10 top-0">
 
-        <div className="flex w-full h-screen z-9 from-stone-900 bg-gradient-to-t text-center items-center justify-center uppercase text-lg font-medium">
+        <div className="flex h-screen z-9 from-stone-900 bg-gradient-to-t text-center items-center justify-center uppercase text-lg font-medium">
           Explore the Collection of my Adventure Snapshots
         </div>
         <div className="bg-stone-900">
